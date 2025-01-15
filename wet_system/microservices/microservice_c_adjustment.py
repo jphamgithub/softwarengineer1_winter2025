@@ -1,32 +1,31 @@
-"""
-Microservice C: Recommends adjustments to improve system performance.
-"""
+# Microservice C: Provides operational adjustment recommendations and saves output to JSON
+import json
 
-def adjust_operations(efficiency, monitoring_report):
-    """
-    Provide recommendations for optimizing system performance.
+def adjust_operations():
+    """Generate operational adjustments and save to JSON."""
+    try:
+        # Read monitoring report
+        with open("data/monitoring.json", "r") as file:
+            monitoring_data = json.load(file)
+    except (FileNotFoundError, KeyError) as e:
+        print(f"Error reading monitoring data: {e}")
+        return
 
-    Args:
-        efficiency (float): The current water extraction efficiency.
-        monitoring_report (dict): The system's operational report.
-
-    Returns:
-        list: A list of recommended actions.
-    """
-    # Initialize the list of adjustments
+    # Generate adjustments
     adjustments = []
-
-    # Recommend action if efficiency is below a threshold
-    if efficiency < 0.7:
+    if monitoring_data["efficiency"] < 0.7:
         adjustments.append("Increase filtration power.")
-
-    # Recommend action if energy level is low
-    if monitoring_report["energy_status"] == "low":
-        adjustments.append("Reduce operational intensity to save energy.")
-
-    # Recommend action if filters are not optimal
-    if monitoring_report["filter_status"] != "optimal":
+    if monitoring_data["energy_status"] == "low":
+        adjustments.append("Reduce operational intensity.")
+    if monitoring_data["filter_status"] != "optimal":
         adjustments.append("Replace or clean filters.")
 
-    # Return adjustments or indicate no action is needed
-    return adjustments if adjustments else ["No adjustments needed."]
+    # Save adjustments to JSON
+    output = {"adjustments": adjustments or ["No adjustments needed."]}
+    with open("data/adjustments.json", "w") as file:
+        json.dump(output, file)
+
+    print("Adjustments generated.")
+
+if __name__ == "__main__":
+    adjust_operations()

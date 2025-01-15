@@ -1,22 +1,30 @@
-"""
-Microservice D: Generates a detailed summary of system performance and adjustments.
-"""
+# Microservice D: Generates a summary of system performance and saves output to JSON
+import json
 
-def generate_summary(efficiency, monitoring_report, adjustments):
-    """
-    Generate a summary report of the system's performance.
+def generate_summary():
+    """Generate a summary of system performance."""
+    try:
+        # Read monitoring and adjustments data
+        with open("data/monitoring.json", "r") as mon_file:
+            monitoring_data = json.load(mon_file)
+        with open("data/adjustments.json", "r") as adj_file:
+            adjustment_data = json.load(adj_file)
+    except (FileNotFoundError, KeyError) as e:
+        print(f"Error reading data for summary generation: {e}")
+        return
 
-    Args:
-        efficiency (float): Water extraction efficiency.
-        monitoring_report (dict): System status details.
-        adjustments (list): Recommended operational adjustments.
+    # Create summary
+    summary = {
+        "efficiency": f"{monitoring_data['efficiency'] * 100:.2f}%",
+        "monitoring": monitoring_data,
+        "adjustments": adjustment_data["adjustments"]
+    }
 
-    Returns:
-        str: A formatted summary string.
-    """
-    # Format the summary details for user output
-    return (
-        f"Water Extraction Efficiency: {efficiency * 100:.2f}%\n"
-        f"System Monitoring Report: {monitoring_report}\n"
-        f"Recommended Adjustments: {', '.join(adjustments)}"
-    )
+    # Save summary to JSON
+    with open("data/summary.json", "w") as file:
+        json.dump(summary, file)
+
+    print("Summary generated.")
+
+if __name__ == "__main__":
+    generate_summary()

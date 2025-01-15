@@ -1,29 +1,34 @@
-"""
-Microservice A: Calculates the water extraction efficiency based on waste volume and environmental conditions.
-"""
+# Microservice A: Calculates water extraction efficiency and saves output to JSON
+import json
 
-def calculate_efficiency(waste_volume, environment_conditions):
-    """
-    Calculate water extraction efficiency.
+def calculate_efficiency():
+    """Calculate water extraction efficiency based on input data."""
+    # Read input data from JSON file
+    try:
+        with open("data/input_a.json", "r") as file:
+            input_data = json.load(file)
+            waste_volume = input_data["waste_volume"]
+            environment_conditions = input_data["environment_conditions"]
+    except (FileNotFoundError, KeyError) as e:
+        print(f"Error reading input data for efficiency calculation: {e}")
+        return
 
-    Args:
-        waste_volume (float): The amount of waste to process, in liters.
-        environment_conditions (dict): Includes temperature and gravity.
-
-    Returns:
-        float: The efficiency percentage (0.0 to 1.0).
-    """
-    # Base efficiency starts at 85%
+    # Base efficiency for the system
     base_efficiency = 0.85
 
-    # Adjust efficiency for temperature differences
-    temperature_factor = 1 - abs(25 - environment_conditions["temperature"]) * 0.01
+    # Adjust efficiency based on temperature and gravity
+    temperature = environment_conditions["temperature"]
+    gravity = environment_conditions["gravity"]
+    temperature_factor = max(0, 1 - abs(25 - temperature) * 0.02)
+    gravity_factor = max(0, 1 - abs(1.0 - gravity) * 0.05)
+    efficiency = max(0, min(base_efficiency * temperature_factor * gravity_factor, 1))
 
-    # Adjust efficiency for gravity variations
-    gravity_factor = 1 - abs(1.0 - environment_conditions["gravity"]) * 0.05
+    # Save calculated efficiency to JSON file
+    output = {"efficiency": efficiency}
+    with open("data/efficiency.json", "w") as file:
+        json.dump(output, file)
 
-    # Calculate the final efficiency by combining factors
-    efficiency = base_efficiency * temperature_factor * gravity_factor
+    print(f"Efficiency calculated: {efficiency * 100:.2f}%")
 
-    # Ensure efficiency is clamped between 0 (0%) and 1 (100%)
-    return max(0, min(efficiency, 1))
+if __name__ == "__main__":
+    calculate_efficiency()

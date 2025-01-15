@@ -1,7 +1,7 @@
 
 # W.E.T. System (Water Extraction and Transformation System)
 
-The **W.E.T. System** is a Python-based project designed to optimize water extraction efficiency in space environments. It employs microservices to calculate, monitor, adjust, and summarize water extraction processes for optimal performance in resource-constrained settings. 
+The **W.E.T. System** is a Python-based project designed to optimize water extraction efficiency in space environments. It employs microservices to calculate, monitor, adjust, and summarize water extraction processes for optimal performance in resource-constrained settings. Outputs are provided in JSON format for integration with other systems or detailed analysis.
 
 ---
 
@@ -17,7 +17,7 @@ The **W.E.T. System** is a Python-based project designed to optimize water extra
     │   ├── microservice_a_efficiency.py  # Calculates extraction efficiency
     │   ├── microservice_b_monitoring.py  # Monitors system metrics
     │   ├── microservice_c_adjustment.py  # Provides system adjustment suggestions
-    │   ├── microservice_d_summary.py     # Summarizes operations and insights
+    │   ├── microservice_d_summary.py     # Summarizes operations and outputs JSON
     └── tests/                 # Unit tests for all components
         ├── test_efficiency.py   # Tests for microservice A
         ├── test_monitoring.py   # Tests for microservice B
@@ -29,20 +29,24 @@ The **W.E.T. System** is a Python-based project designed to optimize water extra
 
 ## How It Works
 
-The W.E.T. System utilizes a **modular microservices architecture**, where each microservice performs a specific role:
+The W.E.T. System uses a **modular microservices architecture**, where each microservice performs a specific role:
 
-1. **Efficiency Calculation** (`microservice_a_efficiency.py`): Computes the water extraction efficiency based on input parameters.
-2. **Monitoring** (`microservice_b_monitoring.py`): Tracks system metrics such as waste volume and resource consumption.
+1. **Efficiency Calculation** (`microservice_a_efficiency.py`): Computes water extraction efficiency.
+2. **Monitoring** (`microservice_b_monitoring.py`): Tracks metrics like waste volume and resource consumption.
 3. **Adjustment** (`microservice_c_adjustment.py`): Suggests operational changes to improve efficiency.
-4. **Summary** (`microservice_d_summary.py`): Provides a comprehensive overview of system performance.
+4. **Summary** (`microservice_d_summary.py`): Provides a JSON-formatted report summarizing system performance.
 
-The `main_program.py` integrates these microservices and provides a user-friendly interface for astronauts or ground control to interact with the system.
+The `main_program.py` integrates these microservices and provides a user-friendly interface for astronauts or ground control.
 
 ---
 
 ## Installation and Setup
 
-Follow these steps to set up and run the project:
+### Prerequisites
+
+- Python 3.8 or later installed on your system.
+
+### Steps
 
 1. **Clone the Repository:**
    ```bash
@@ -51,19 +55,16 @@ Follow these steps to set up and run the project:
    ```
 
 2. **Install Dependencies:**
-   Ensure you have Python 3.8 or later installed, then run:
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Run the Main Program:**
-   Execute the main program to start the W.E.T. System:
    ```bash
    python3 main_program.py
    ```
 
 4. **Run Tests:**
-   Ensure all components are working as expected:
    ```bash
    pytest tests/
    ```
@@ -74,22 +75,39 @@ Follow these steps to set up and run the project:
 
 ### Running the Program
 - **Input**: Provide parameters such as waste volume, environmental conditions, and system status.
-- **Output**: The system calculates efficiency, monitors metrics, suggests adjustments, and summarizes data.
+- **Output**: The program generates a JSON report of the system's performance.
 
-### Example Workflow:
-1. Start the program using `python main_program.py`.
-2. Enter the required parameters as prompted.
-3. View real-time metrics and adjustment suggestions.
-4. Receive a detailed performance summary.
+### JSON Output Example:
+The summary will be saved in `summary_report.json`. Below is an example output:
+
+```json
+{
+    "WaterExtractionEfficiency": "85.00%",
+    "SystemMonitoringReport": {
+        "filter_status": "optimal",
+        "energy_status": "sufficient",
+        "waste_volume": 100
+    },
+    "RecommendedAdjustments": [
+        "Increase filtration power.",
+        "Optimize energy usage."
+    ]
+}
+```
+
+### How to Use JSON Outputs
+1. Run the program to generate a report.
+2. The JSON file `summary_report.json` is automatically saved in the project directory.
+3. This file can be shared with other team members or integrated into downstream applications for further processing.
 
 ---
 
 ## Features
 
-- **Efficiency Optimization**: Advanced algorithms for water recovery.
-- **Modular Design**: Easy to maintain and extend with additional microservices.
-- **Real-Time Monitoring**: Tracks system performance for immediate feedback.
-- **Actionable Insights**: Provides clear adjustment recommendations.
+- **Efficiency Optimization**: Advanced algorithms to maximize water recovery.
+- **JSON Integration**: Outputs are stored in JSON format for compatibility and ease of sharing.
+- **Real-Time Monitoring**: Tracks and reports system metrics in real-time.
+- **Actionable Insights**: Suggests adjustments to enhance system performance.
 
 ---
 
