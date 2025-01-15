@@ -1,5 +1,5 @@
 
-# W.E.T. System (Water Extraction and Transformation System)
+# W.E.T. System (Water Extraction and Transformation System) ~
 
 The **W.E.T. System** is a Python-based project designed to optimize water extraction efficiency in space environments. It employs microservices to calculate, monitor, adjust, and summarize water extraction processes for optimal performance in resource-constrained settings. Outputs are provided in JSON format for integration with other systems or detailed analysis.
 
