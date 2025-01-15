@@ -1,0 +1,9 @@
+# Core dependencies
+numpy==1.24.0   # For numerical calculations, if needed for complex algorithms
+pandas==2.0.0   # For structured data manipulation and analysis
+
+# For testing
+pytest==7.4.0   # To run unit tests for all microservices
+
+# Optional - For future enhancements like logging or system monitoring
+loguru==0.7.0   # A robust logging library for debugging
