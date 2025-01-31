@@ -1,1 +1,7 @@
-{"adjustments": ["Reduce operational intensity."]}
+{
+    "adjustments": [
+        "Energy level is low. Reduce operational intensity or switch to energy-saving mode.",
+        "Filters are in optimal condition. No immediate action required.",
+        "Waste volume is low (24.0 liters). System is running efficiently."
+    ]
+}
