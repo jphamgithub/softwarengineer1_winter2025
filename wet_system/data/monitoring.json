@@ -1,5 +1,5 @@
 {
-    "waste_volume": 24.0,
+    "waste_volume": 100000.0,
     "energy_status": "low",
     "filter_status": "optimal",
     "efficiency": 0.85
